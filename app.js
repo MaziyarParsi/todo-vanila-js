@@ -2,9 +2,10 @@ const TODO_INPUT = document.querySelector(".todoInput")
 const TODO_BUTTON = document.querySelector(".todoButton")
 const TODO_LIST = document.querySelector(".todoList")
 
-TODO_BUTTON.addEventListener("click", addTodoElemet)
+TODO_BUTTON.addEventListener("click", addTodoElements)
+TODO_LIST.addEventListener("click", deleteElement)
 
-function addTodoElemet(event) {
+function addTodoElements(event) {
   event.preventDefault()
   const todoListItemDiv = document.createElement("div")
   todoListItemDiv.classList.add("todoListItemdiv")
@@ -22,4 +23,11 @@ function addTodoElemet(event) {
   todoListItemDiv.appendChild(deleteButton)
   TODO_LIST.appendChild(todoListItemDiv)
   TODO_INPUT.value = ""
+}
+
+function deleteElement(event) {
+  let item = event.target
+  if (item.classList[0] === "deleteButton") {
+    item.parentElement.remove()
+  }
 }
