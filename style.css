@@ -41,3 +41,10 @@ form button:hover {
   background: rgb(49, 104, 148);
   color: white;
 }
+ul.todoList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+}
