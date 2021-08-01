@@ -41,10 +41,35 @@ form button:hover {
   background: rgb(49, 104, 148);
   color: white;
 }
-ul.todoList {
+.todoContainer {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  list-style-type: none;
+}
+.todoList {
+  min-width: 30%;
+  list-style: none;
+}
+.todoListItemdiv {
+  margin: 0.4rem;
+  background: white;
+  color: black;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todoItem {
+  flex: 1;
+}
+.checkedButton,
+.deleteButton {
+  cursor: pointer;
+  background: rgb(243, 89, 42);
+  color: white;
+  padding: 1rem;
+  font-size: 1rem;
+}
+.checkedButton {
+  background: rgb(47, 189, 47);
 }
