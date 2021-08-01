@@ -1,9 +1,13 @@
 const TODO_INPUT = document.querySelector(".todoInput")
 const TODO_BUTTON = document.querySelector(".todoButton")
 const TODO_LIST = document.querySelector(".todoList")
+const REFRESH_BUTTON = document.querySelector(".refreshButton")
+
+let card = []
 
 TODO_BUTTON.addEventListener("click", addTodoElements)
 TODO_LIST.addEventListener("click", deleteElement)
+REFRESH_BUTTON.addEventListener("click", refreshPage)
 
 function addTodoElements(event) {
   event.preventDefault()
@@ -23,11 +27,21 @@ function addTodoElements(event) {
   todoListItemDiv.appendChild(deleteButton)
   TODO_LIST.appendChild(todoListItemDiv)
   TODO_INPUT.value = ""
+  card.push(todoListItemDiv)
 }
 
 function deleteElement(event) {
   let item = event.target
   if (item.classList[0] === "deleteButton") {
-    item.parentElement.remove()
+    item.parentElement.classList.add("fall")
+    item.parentElement.addEventListener("transitionend", () => {
+      item.parentElement.remove()
+    })
   }
+  if (item.classList[0] === "checkedButton") {
+    item.parentElement.classList.toggle("checked")
+  }
+}
+function refreshPage() {
+  for (let i = 0; i < card.length; i++) card[i].remove()
 }
