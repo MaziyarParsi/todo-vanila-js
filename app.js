@@ -9,7 +9,7 @@ function addTodoElemet(event) {
   const todoListItemDiv = document.createElement("div")
   todoListItemDiv.classList.add("todoListItemdiv")
   const newTodoElement = document.createElement("li")
-  newTodoElement.innerText = "hey!"
+  newTodoElement.innerText = TODO_INPUT.value
   newTodoElement.classList.add("todoItem")
   todoListItemDiv.appendChild(newTodoElement)
   const checkButton = document.createElement("button")
@@ -21,4 +21,5 @@ function addTodoElemet(event) {
   deleteButton.classList.add("deleteButton")
   todoListItemDiv.appendChild(deleteButton)
   TODO_LIST.appendChild(todoListItemDiv)
+  TODO_INPUT.value = ""
 }
