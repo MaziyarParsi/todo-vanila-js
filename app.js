@@ -44,6 +44,8 @@ function deleteElement(event) {
   let item = event.target
   if (item.classList[0] === "deleteButton") {
     item.parentElement.classList.add("fall")
+    /// remove from localStorage
+    removeLocalTodos(item.parentElement)
     item.parentElement.addEventListener("transitionend", () => {
       item.parentElement.remove()
     })
@@ -62,7 +64,6 @@ function saveLocalTodos(todo) {
   if (localStorage.getItem("todos") === null) todosArray = []
   else todosArray = JSON.parse(localStorage.getItem("todos"))
   todosArray.push(todo)
-  console.log(todosArray)
   localStorage.setItem("todos", JSON.stringify(todosArray))
 }
 
@@ -88,4 +89,13 @@ function getTodos() {
     todoListItemDiv.appendChild(deleteButton)
     TODO_LIST.appendChild(todoListItemDiv)
   })
+}
+
+function removeLocalTodos(todo) {
+  let todosArray
+  if (localStorage.getItem("todos") === null) todosArray = []
+  else todosArray = JSON.parse(localStorage.getItem("todos"))
+  let todoIndex = todosArray.indexOf(todo.children[0].innerText)
+  todosArray.splice(todosArray.indexOf(todoIndex), 1)
+  localStorage.setItem("todos", JSON.stringify(todosArray))
 }
