@@ -4,8 +4,9 @@ const TODO_LIST = document.querySelector(".todoList")
 const REFRESH_BUTTON = document.querySelector(".refreshButton")
 let card = []
 
-/// Creating Functions
+/// Creating EventLiseners
 
+document.addEventListener("DOMContentLoaded", getTodos)
 TODO_BUTTON.addEventListener("click", addTodoElements)
 TODO_LIST.addEventListener("click", deleteElement)
 REFRESH_BUTTON.addEventListener("click", refreshPage)
@@ -13,26 +14,30 @@ REFRESH_BUTTON.addEventListener("click", refreshPage)
 function addTodoElements(event) {
   event.preventDefault()
   /// creating element
-  const todoListItemDiv = document.createElement("div")
-  todoListItemDiv.classList.add("todoListItemdiv")
-  const newTodoElement = document.createElement("li")
-  newTodoElement.innerText = TODO_INPUT.value
-  newTodoElement.classList.add("todoItem")
-  todoListItemDiv.appendChild(newTodoElement)
-  const checkButton = document.createElement("button")
-  checkButton.innerHTML = '<i class="fas fa-check "> </i>'
-  checkButton.classList.add("checkedButton")
-  todoListItemDiv.appendChild(checkButton)
-  const deleteButton = document.createElement("button")
-  deleteButton.innerHTML = '<i class="fas fa-trash "> </i>'
-  deleteButton.classList.add("deleteButton")
-  todoListItemDiv.appendChild(deleteButton)
-  TODO_LIST.appendChild(todoListItemDiv)
-  /// save values to local storage
-  saveLocalTodos(TODO_INPUT.value)
-  /// clear input value
-  TODO_INPUT.value = ""
-  card.push(todoListItemDiv)
+  if (TODO_INPUT.value) {
+    const todoListItemDiv = document.createElement("div")
+    todoListItemDiv.classList.add("todoListItemdiv")
+    const newTodoElement = document.createElement("li")
+    newTodoElement.innerText = TODO_INPUT.value
+    newTodoElement.classList.add("todoItem")
+    todoListItemDiv.appendChild(newTodoElement)
+    const checkButton = document.createElement("button")
+    checkButton.innerHTML = '<i class="fas fa-check "> </i>'
+    checkButton.classList.add("checkedButton")
+    todoListItemDiv.appendChild(checkButton)
+    const deleteButton = document.createElement("button")
+    deleteButton.innerHTML = '<i class="fas fa-trash "> </i>'
+    deleteButton.classList.add("deleteButton")
+    todoListItemDiv.appendChild(deleteButton)
+    TODO_LIST.appendChild(todoListItemDiv)
+    /// save values to local storage
+    saveLocalTodos(TODO_INPUT.value)
+    /// clear input value
+    TODO_INPUT.value = ""
+    card.push(todoListItemDiv)
+  } else {
+    alert("Write something in input bro!")
+  }
 }
 
 function deleteElement(event) {
@@ -49,6 +54,7 @@ function deleteElement(event) {
 }
 function refreshPage() {
   for (let i = 0; i < card.length; i++) card[i].remove()
+  localStorage.clear()
 }
 
 function saveLocalTodos(todo) {
@@ -58,4 +64,28 @@ function saveLocalTodos(todo) {
   todosArray.push(todo)
   console.log(todosArray)
   localStorage.setItem("todos", JSON.stringify(todosArray))
+}
+
+function getTodos() {
+  let todosArray
+  if (localStorage.getItem("todos") === null) todosArray = []
+  else todosArray = JSON.parse(localStorage.getItem("todos"))
+
+  todosArray.forEach((todo) => {
+    const todoListItemDiv = document.createElement("div")
+    todoListItemDiv.classList.add("todoListItemdiv")
+    const newTodoElement = document.createElement("li")
+    newTodoElement.innerText = todo
+    newTodoElement.classList.add("todoItem")
+    todoListItemDiv.appendChild(newTodoElement)
+    const checkButton = document.createElement("button")
+    checkButton.innerHTML = '<i class="fas fa-check "> </i>'
+    checkButton.classList.add("checkedButton")
+    todoListItemDiv.appendChild(checkButton)
+    const deleteButton = document.createElement("button")
+    deleteButton.innerHTML = '<i class="fas fa-trash "> </i>'
+    deleteButton.classList.add("deleteButton")
+    todoListItemDiv.appendChild(deleteButton)
+    TODO_LIST.appendChild(todoListItemDiv)
+  })
 }
