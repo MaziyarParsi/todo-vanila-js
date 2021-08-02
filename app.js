@@ -57,6 +57,7 @@ function deleteElement(event) {
 function refreshPage() {
   for (let i = 0; i < card.length; i++) card[i].remove()
   localStorage.clear()
+  location.reload()
 }
 
 function saveLocalTodos(todo) {
