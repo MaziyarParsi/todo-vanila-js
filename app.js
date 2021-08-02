@@ -95,7 +95,7 @@ function removeLocalTodos(todo) {
   let todosArray
   if (localStorage.getItem("todos") === null) todosArray = []
   else todosArray = JSON.parse(localStorage.getItem("todos"))
-  let todoIndex = todosArray.indexOf(todo.children[0].innerText)
+  let todoIndex = todo.children[0].innerText
   todosArray.splice(todosArray.indexOf(todoIndex), 1)
   localStorage.setItem("todos", JSON.stringify(todosArray))
 }
