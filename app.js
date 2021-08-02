@@ -17,6 +17,9 @@ function addTodoElements(event) {
   newTodoElement.innerText = TODO_INPUT.value
   newTodoElement.classList.add("todoItem")
   todoListItemDiv.appendChild(newTodoElement)
+
+  saveLocalTodos(TODO_INPUT.value)
+
   const checkButton = document.createElement("button")
   checkButton.innerHTML = '<i class="fas fa-check "> </i>'
   checkButton.classList.add("checkedButton")
@@ -44,4 +47,13 @@ function deleteElement(event) {
 }
 function refreshPage() {
   for (let i = 0; i < card.length; i++) card[i].remove()
+}
+
+function saveLocalTodos(todo) {
+  let todosArray
+  if (localStorage.getItem("todos") === null) todosArray = []
+  else todosArray = JSON.parse(localStorage.getItem("todos"))
+  todosArray.push(todo)
+  console.log(todosArray)
+  localStorage.setItem("todos", JSON.stringify(todosArray))
 }
